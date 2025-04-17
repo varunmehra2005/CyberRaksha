@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cyber Security Quiz 2</title>
+  <style>
+    body { font-family: Arial, sans-serif; background: #f1f1f1; padding: 30px; }
+    .container { background: white; max-width: 800px; margin: auto; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
+    h2 { text-align: center; }
+    .question { margin-bottom: 20px; }
+    button { background: #28a745; color: white; padding: 10px 20px; border: none; margin-top: 10px; border-radius: 5px; cursor: pointer; }
+    button:hover { background: #218838; }
+    .result { background: #e2f7e2; padding: 10px; margin-top: 20px; border-left: 5px solid green; }
+    .back-link { display: inline-block; margin-top: 20px; text-decoration: none; color: #007BFF; }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Cyber Security Quiz 2</h2>
+    <form id="quiz-form">
+      <div id="questions-container"></div>
+      <button type="submit">Submit Quiz</button>
+    </form>
+    <div id="result" class="result" style="display:none;"></div>
+    <a href="index.html" class="back-link">← Back to Main Menu</a>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "Which of the following is a strong password?",
+        options: ["password123", "johnsmith", "Qz!7xR9@pL", "letmein"],
+        answer: 2
+      },
+      {
+        question: "What is the goal of ethical hacking?",
+        options: ["To steal data", "To create malware", "To find security flaws", "To slow down systems"],
+        answer: 2
+      },
+      {
+        question: "What is the first step in securing your online accounts?",
+        options: ["Click ads", "Use the same password", "Use 2FA", "Use open Wi-Fi"],
+        answer: 2
+      },
+      {
+        question: "Spyware is used to:",
+        options: ["Improve performance", "Fix bugs", "Steal sensitive info", "Create backups"],
+        answer: 2
+      },
+      {
+        question: "What is the best way to identify a secure website?",
+        options: ["Has a padlock and HTTPS", "Loads fast", "Has pictures", "Uses www"],
+        answer: 0
+      },
+      {
+        question: "Keyloggers are used to:",
+        options: ["Type faster", "Encrypt files", "Record keystrokes", "Clean your system"],
+        answer: 2
+      },
+      {
+        question: "A brute-force attack tries to:",
+        options: ["Send phishing emails", "Guess passwords", "Crash servers", "Encrypt files"],
+        answer: 1
+      },
+      {
+        question: "Why are software updates important?",
+        options: ["Change design", "Improve battery", "Fix security holes", "Make app slower"],
+        answer: 2
+      },
+      {
+        question: "What is an example of multi-factor authentication?",
+        options: ["Password only", "Fingerprint and password", "Username only", "Face only"],
+        answer: 1
+      },
+      {
+        question: "What does HTTPS mean?",
+        options: ["HyperText Transfer Protocol Secure", "Home Transfer Tool Protocol", "High-Tech Transfer Process", "Hybrid Type Transfer Service"],
+        answer: 0
+      }
+    ];
+
+    const container = document.getElementById("questions-container");
+    const form = document.getElementById("quiz-form");
+    const resultDiv = document.getElementById("result");
+
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `
+        <p>${i + 1}. ${q.question}</p>
+        ${q.options.map((opt, j) => `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label><br>`).join("")}
+      `;
+      container.appendChild(div);
+    });
+
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      let score = 0;
+      let feedback = "";
+      questions.forEach((q, i) => {
+        const selected = form[`q${i}`].value;
+        if (parseInt(selected) === q.answer) {
+          score++;
+          feedback += `<p>Question ${i + 1}: Correct ✅</p>`;
+        } else {
+          feedback += `<p>Question ${i + 1}: Incorrect ❌ (Correct: ${q.options[q.answer]})</p>`;
+        }
+      });
+      resultDiv.style.display = "block";
+      resultDiv.innerHTML = `<h3>You scored ${score} out of ${questions.length}</h3>${feedback}`;
+    });
+  </script>
+</body>
+</html>

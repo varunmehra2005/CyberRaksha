@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Cyber Security Quiz 1</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f1f1;
+      padding: 30px;
+    }
+    .container {
+      background: white;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+    }
+    h2 {
+      text-align: center;
+    }
+    .question {
+      margin-bottom: 20px;
+    }
+    button {
+      background: #28a745;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      margin-top: 10px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #218838;
+    }
+    .result {
+      background: #e2f7e2;
+      padding: 10px;
+      margin-top: 20px;
+      border-left: 5px solid green;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #007BFF;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Cyber Security Quiz 1</h2>
+    <form id="quiz-form">
+      <div id="questions-container"></div>
+      <button type="submit">Submit Quiz</button>
+    </form>
+    <div id="result" class="result" style="display:none;"></div>
+    <a href="index.html" class="back-link">← Back to Main Menu</a>
+  </div>
+
+  <script>
+    const questions = [
+      {
+        question: "What does 'phishing' refer to?",
+        options: [
+          "Cyber attack via deceptive emails",
+          "Fishing game",
+          "Email encryption",
+          "Network protocol"
+        ],
+        answer: 0
+      },
+      {
+        question: "Common sign of a phishing email?",
+        options: [
+          "Urgent language",
+          "Bad grammar",
+          "Suspicious links",
+          "All of the above"
+        ],
+        answer: 3
+      },
+      {
+        question: "What is a firewall?",
+        options: [
+          "Blocks unauthorized access",
+          "Cleans your PC",
+          "Slows internet",
+          "Stores passwords"
+        ],
+        answer: 0
+      },
+      {
+        question: "What does VPN stand for?",
+        options: [
+          "Virtual Private Network",
+          "Verified Password Name",
+          "Video Private Net",
+          "Very Protected Network"
+        ],
+        answer: 0
+      },
+      {
+        question: "Best password practice?",
+        options: [
+          "Use '123456'",
+          "Use your name",
+          "Use mix of symbols, numbers, letters",
+          "Reuse old passwords"
+        ],
+        answer: 2
+      },
+      {
+        question: "What is ransomware?",
+        options: [
+          "Encrypts files for ransom",
+          "Security software",
+          "Firewall upgrade",
+          "Cloud tool"
+        ],
+        answer: 0
+      },
+      {
+        question: "Malware stands for?",
+        options: [
+          "Malicious software",
+          "Malfunction alert",
+          "Multiple warnings",
+          "Managed alerts"
+        ],
+        answer: 0
+      },
+      {
+        question: "Purpose of two-factor auth?",
+        options: [
+          "Simplify login",
+          "Extra layer of security",
+          "Backup system",
+          "Encrypt files"
+        ],
+        answer: 1
+      },
+      {
+        question: "What is DDoS?",
+        options: [
+          "Flood server with traffic",
+          "Data sync tool",
+          "Secure login",
+          "Firewall protocol"
+        ],
+        answer: 0
+      },
+      {
+        question: "What is social engineering?",
+        options: [
+          "Tricking people to give info",
+          "Designing UI",
+          "Server setup",
+          "Cloud storage"
+        ],
+        answer: 0
+      }
+    ];
+
+    const container = document.getElementById("questions-container");
+    const form = document.getElementById("quiz-form");
+    const resultDiv = document.getElementById("result");
+
+    // Display questions
+    questions.forEach((q, i) => {
+      const div = document.createElement("div");
+      div.className = "question";
+      div.innerHTML = `
+        <p>${i + 1}. ${q.question}</p>
+        ${q.options.map((opt, j) =>
+          `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label><br>`
+        ).join("")}
+      `;
+      container.appendChild(div);
+    });
+
+    // Submit handler
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      let score = 0;
+      let feedback = "";
+      questions.forEach((q, i) => {
+        const selected = form[`q${i}`].value;
+        if (parseInt(selected) === q.answer) {
+          score++;
+          feedback += `<p>Question ${i + 1}: Correct ✅</p>`;
+        } else {
+          feedback += `<p>Question ${i + 1}: Incorrect ❌ (Correct: ${q.options[q.answer]})</p>`;
+        }
+      });
+
+      resultDiv.style.display = "block";
+      resultDiv.innerHTML = `<h3>You scored ${score} out of ${questions.length}</h3>${feedback}`;
+    });
+  </script>
+</body>
+</html>
