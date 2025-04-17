@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resources</title>
+    <link rel="stylesheet" href="resources.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="CyberRaksha Logo">
+        </div>
+        <div class="welcome-header-top">
+            <h1>Welcome <span id="username-top-resources">User</span>!</h1>
+        </div>
+    </header>
+
+    <main class="resources-content">
+        <div class="back-button-container">
+            <a href="../welcome.html" class="back-button">&larr; Back to Welcome Page</a>
+        </div>
+
+        <section class="resources-heading">
+            <h2>Explore Our <span class="attractive-text">Valuable Resources</span></h2>
+        </section>
+
+        <section class="resource-buttons">
+            <button id="articles-btn" class="active">Articles</button>
+            <button id="videos-btn">Videos</button>
+        </section>
+
+        <section class="resource-list" id="resource-list">
+            </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const articlesBtn = document.getElementById('articles-btn');
+            const videosBtn = document.getElementById('videos-btn');
+            const resourceList = document.getElementById('resource-list');
+            const usernameTop = document.getElementById('username-top-resources');
+            const storedUsername = localStorage.getItem('username');
+
+            if (storedUsername) {
+                usernameTop.textContent = storedUsername;
+            }
+
+            // Array of article links (REPLACE WITH YOUR ACTUAL LINKS)
+            const articleLinks = [
+                'https://www.staysafeonline.org/articles/6-cybersecurity-myths-debunked',
+                'https://www.staysafeonline.org/articles/cyberbullying-in-the-workplace-how-to-recognize-address-and-prevent-it',
+                'https://cybermagazine.com/articles/this-weeks-top-5-stories-in-cybersecurity-april-11',
+                'https://www.reuters.com/technology/cybersecurity/notorious-internet-messageboard-4chan-has-been-hacked-posts-claim-2025-04-15/',
+                'https://www.reuters.com/technology/cybersecurity/whistleblower-org-says-doge-may-have-caused-significant-cyber-breach-us-labor-2025-04-15/',
+                'https://www.reuters.com/world/us/us-agency-extends-support-last-minute-cyber-vulnerability-database-2025-04-16/',
+            ];
+
+            // Array of article image paths (REPLACE WITH YOUR ACTUAL IMAGE PATHS)
+            const articleImages = [
+                'article1.png',
+                'article2.png',
+                'article3.png',
+                'article4.jpg',
+                'article5.jpg',
+                'article6.jpg',
+            ];
+
+            // Array of article titles (ADD YOUR ARTICLE TITLES HERE)
+            const articleTitles = [
+                '6 Cybersecurity Myths Debunked',
+                'Cyberbullying in the Workplace: How to Recognize, Address, and Prevent It',
+                "This Week's Top 5 Stories in Cybersecurity",
+                'Notorious internet messageboard 4chan has been hacked, posts claim',
+                'Whistleblower org says DOGE may have caused "significant cyber breach" at US labor watchdog',
+                'In last-minute reversal, US agency extends support for cyber vulnerability database',
+            ];
+
+            // Array of video links (REPLACE WITH YOUR ACTUAL LINKS)
+            const videoLinks = [
+                'https://www.youtube.com/watch?v=v7BNtpw53AA&ab_channel=ProgrammingwithMosh',
+                'https://www.youtube.com/watch?v=jtFUs_BGsH8&ab_channel=BittenTech',
+                'https://www.example.com/video3',
+                'https://www.example.com/video4',
+                'https://www.example.com/video5'
+            ];
+
+            // Array of video titles (ADD YOUR VIDEO TITLES HERE)
+            const videoTitles = [
+                'The Complete Cybersecurity Roadmap: Land a Cybersecurity Job in 10 Months',
+                'Future of Cyber Security | Trends and Skills for 2025',
+                'Title of Video 3',
+                'Title of Video 4',
+                'Title of Video 5'
+            ];
+
+            // Array of video thumbnail image paths (REPLACE WITH YOUR ACTUAL IMAGE PATHS)
+            const videoThumbnails = [
+                'video1.jpg',
+                'video2.jpg',
+                'video-thumbnail3.jpg',
+                'video-thumbnail4.jpg',
+                'video-thumbnail5.jpg'
+            ];
+
+            function loadArticles() {
+                resourceList.innerHTML = ''; // Clear previous content
+                for (let i = 0; i < 6; i++) {
+                    const articleBox = document.createElement('div');
+                    articleBox.classList.add('resource-box');
+                    articleBox.innerHTML = `
+                        <img src="${articleImages[i]}" alt="${articleTitles[i]}" class="box-image">
+                        <div class="box-info">
+                            <h3>${articleTitles[i]}</h3>
+                            <a href="${articleLinks[i]}" class="read-button" target="_blank">Read -></a>
+                        </div>
+                    `;
+                    resourceList.appendChild(articleBox);
+                }
+            }
+
+            function loadVideos() {
+                resourceList.innerHTML = ''; // Clear previous content
+                for (let i = 0; i < 5; i++) {
+                    const videoBox = document.createElement('div');
+                    videoBox.classList.add('resource-box', 'video-box');
+                    videoBox.innerHTML = `
+                        <img src="${videoThumbnails[i]}" alt="${videoTitles[i]} Thumbnail" class="video-thumbnail">
+                        <div class="box-info">
+                            <h3>${videoTitles[i]}</h3>
+                            <a href="${videoLinks[i]}" class="watch-button" target="_blank">Watch -></a>
+                        </div>
+                    `;
+                    resourceList.appendChild(videoBox);
+                }
+            }
+
+            articlesBtn.addEventListener('click', () => {
+                articlesBtn.classList.add('active');
+                videosBtn.classList.remove('active');
+                loadArticles();
+            });
+
+            videosBtn.addEventListener('click', () => {
+                videosBtn.classList.add('active');
+                articlesBtn.classList.remove('active');
+                loadVideos();
+            });
+
+            // Load articles by default
+            loadArticles();
+        });
+    </script>
+</body>
+</html>

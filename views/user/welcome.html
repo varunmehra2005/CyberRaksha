@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Welcome User</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column; /* Stack header and main content */
+            align-items: center; /* Center content horizontally */
+            min-height: 100vh;
+        }
+
+        header {
+            width: 100%;
+            max-width: 1200px; /* Match container max-width for alignment */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 30px;
+            background-color: #ffffff;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            position: sticky;
+            top: 0;
+            z-index: 999;
+        }
+
+        .logo img {
+            height: 40px;
+        }
+
+        .welcome-header-top {
+            font-size: 1.2rem;
+            color: #555;
+        }
+
+        .container {
+            display: flex;
+            width: 90%;
+            max-width: 1200px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 20px; /* Add space below the header */
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            background-color: #333;
+            color: #fff;
+            width: 200px;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .sidebar-header h3 {
+            margin-top: 0;
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        .nav-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .nav-links li {
+            margin-bottom: 10px;
+        }
+
+        .nav-links a {
+            display: block;
+            color: #eee;
+            text-decoration: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #555;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex-grow: 1;
+            padding: 30px;
+            box-sizing: border-box;
+        }
+
+        .quiz-results h2 {
+            margin-top: 0;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        
+
+        .image-section h2 {
+            margin-top: 0;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .main-image {
+            max-width: 100%;
+            height: auto;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            body {
+                align-items: stretch; /* Make body stretch full width */
+            }
+
+            header {
+                flex-direction: column;
+                align-items: center;
+                padding: 10px;
+            }
+
+            .container {
+                flex-direction: column;
+                width: 95%;
+                margin-top: 10px;
+            }
+
+            .sidebar {
+                width: 100%;
+                margin-bottom: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="logo.png" alt="CyberRaksha Logo">
+        </div>
+        <div class="welcome-header-top">
+            <h1>Welcome <span id="username-top">User</span>!</h1>
+        </div>
+    </header>
+
+    <div class="container">
+        <nav class="sidebar">
+            <div class="sidebar-header">
+                <h3>Menu</h3>
+            </div>
+            <ul class="nav-links">
+                <li><a href="./resources/resources.html">Resources</a></li>
+                <li><a href="#">Community Forum</a></li>
+                <li><a href="#">Quizzes</a></li>
+            </ul>
+        </nav>
+
+        <main class="main-content">
+            <section class="quiz-results">
+                <h2>Your Latest Quiz Result</h2>
+                <div id="quiz-result-display">
+                    <p>No quiz results available yet.</p>
+                </div>
+            </section>
+
+            <section class="image-section">
+                <h2>Explore</h2>
+                <img src="placeholder-image.jpg" alt="Placeholder Image" class="main-image">
+                <p>This is an image showcasing something interesting. You can replace this with your actual image and description.</p>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        // JavaScript code here
+
+        // Example: Change the username in the header
+        const usernameDisplayTop = document.getElementById('username-top');
+        const storedUsername = localStorage.getItem('username'); // Check if username is stored
+
+        if (storedUsername) {
+            usernameDisplayTop.textContent = storedUsername;
+        } else {
+            // Optionally prompt the user for their name and store it
+            const newUsername = prompt("Please enter your name:");
+            if (newUsername) {
+                usernameDisplayTop.textContent = newUsername;
+                localStorage.setItem('username', newUsername);
+            }
+        }
+
+        // Example: Function to display quiz results (you would fetch this data)
+        function displayQuizResults(results) {
+            const quizResultDisplay = document.getElementById('quiz-result-display');
+            if (results && results.score !== undefined && results.total !== undefined) {
+                quizResultDisplay.innerHTML = `<p>Your score: <strong>${results.score} / ${results.total}</strong></p>`;
+                // You can add more details like time taken, etc.
+            } else {
+                quizResultDisplay.innerHTML = `<p>No quiz results available yet.</p>`;
+            }
+        }
+
+        // Simulate fetching quiz results (replace with your actual data retrieval)
+        const latestQuizResults = { score: 8, total: 10 };
+        displayQuizResults(latestQuizResults);
+    </script>
+</body>
+</html>
