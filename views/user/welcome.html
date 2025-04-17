@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>Welcome User</title>
     <style>
         body {
@@ -10,14 +10,14 @@
             font-family: sans-serif;
             background-color: #f4f4f4;
             display: flex;
-            flex-direction: column; /* Stack header and main content */
-            align-items: center; /* Center content horizontally */
+            flex-direction: column;
+            align-items: center;
             min-height: 100vh;
         }
 
         header {
             width: 100%;
-            max-width: 1200px; /* Match container max-width for alignment */
+            max-width: 1200px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -46,10 +46,9 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 8px;
             overflow: hidden;
-            margin-top: 20px; /* Add space below the header */
+            margin-top: 20px;
         }
 
-        /* Sidebar Styles */
         .sidebar {
             background-color: #333;
             color: #fff;
@@ -88,20 +87,11 @@
             background-color: #555;
         }
 
-        /* Main Content Styles */
         .main-content {
             flex-grow: 1;
             padding: 30px;
             box-sizing: border-box;
         }
-
-        .quiz-results h2 {
-            margin-top: 0;
-            color: #333;
-            margin-bottom: 15px;
-        }
-
-        
 
         .image-section h2 {
             margin-top: 0;
@@ -109,17 +99,34 @@
             margin-bottom: 15px;
         }
 
-        .main-image {
+        .slideshow-container {
             max-width: 100%;
-            height: auto;
+            position: relative;
+        }
+
+        .slide {
+            display: none;
+        }
+
+        .slide img {
+            width: 100%;
             border-radius: 5px;
-            margin-bottom: 10px;
+        }
+
+        /* Fade animation */
+        .fade {
+            animation: fade 1s ease-in-out;
+        }
+
+        @keyframes fade {
+            from {opacity: 0.4}
+            to {opacity: 1}
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
             body {
-                align-items: stretch; /* Make body stretch full width */
+                align-items: stretch;
             }
 
             header {
@@ -164,53 +171,40 @@
         </nav>
 
         <main class="main-content">
-            <section class="quiz-results">
-                <h2>Your Latest Quiz Result</h2>
-                <div id="quiz-result-display">
-                    <p>No quiz results available yet.</p>
-                </div>
-            </section>
-
             <section class="image-section">
-                <h2>Explore</h2>
-                <img src="placeholder-image.jpg" alt="Placeholder Image" class="main-image">
-                <p>This is an image showcasing something interesting. You can replace this with your actual image and description.</p>
+                
+                <div class="slideshow-container">
+                    <div class="slide fade"><img src="q1.jpg" alt="Slide 1"></div>
+                    <div class="slide fade"><img src="q2.jpg" alt="Slide 2"></div>
+                    <div class="slide fade"><img src="q3.jpg" alt="Slide 3"></div>
+                    <div class="slide fade"><img src="q4.jpg" alt="Slide 4"></div>
+                    <div class="slide fade"><img src="q5.jpg" alt="Slide 5"></div>
+                </div>
             </section>
         </main>
     </div>
 
     <script>
-        // JavaScript code here
-
-        // Example: Change the username in the header
         const usernameDisplayTop = document.getElementById('username-top');
-        const storedUsername = localStorage.getItem('username'); // Check if username is stored
-
+        const storedUsername = localStorage.getItem('username');
         if (storedUsername) {
             usernameDisplayTop.textContent = storedUsername;
-        } else {
-            // Optionally prompt the user for their name and store it
-            const newUsername = prompt("Please enter your name:");
-            if (newUsername) {
-                usernameDisplayTop.textContent = newUsername;
-                localStorage.setItem('username', newUsername);
-            }
         }
 
-        // Example: Function to display quiz results (you would fetch this data)
-        function displayQuizResults(results) {
-            const quizResultDisplay = document.getElementById('quiz-result-display');
-            if (results && results.score !== undefined && results.total !== undefined) {
-                quizResultDisplay.innerHTML = `<p>Your score: <strong>${results.score} / ${results.total}</strong></p>`;
-                // You can add more details like time taken, etc.
-            } else {
-                quizResultDisplay.innerHTML = `<p>No quiz results available yet.</p>`;
-            }
-        }
+        // Slideshow JS
+        let slideIndex = 0;
+        showSlides();
 
-        // Simulate fetching quiz results (replace with your actual data retrieval)
-        const latestQuizResults = { score: 8, total: 10 };
-        displayQuizResults(latestQuizResults);
+        function showSlides() {
+            let slides = document.getElementsByClassName("slide");
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].style.display = "none";
+            }
+            slideIndex++;
+            if (slideIndex > slides.length) { slideIndex = 1 }
+            slides[slideIndex - 1].style.display = "block";
+            setTimeout(showSlides, 3000); // Change every 3 seconds
+        }
     </script>
 </body>
 </html>
