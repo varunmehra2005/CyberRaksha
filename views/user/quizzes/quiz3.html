@@ -4,14 +4,68 @@
   <meta charset="UTF-8" />
   <title>Cyber Security Quiz 3</title>
   <style>
-    body { font-family: Arial, sans-serif; background: #f1f1f1; padding: 30px; }
-    .container { background: white; max-width: 800px; margin: auto; padding: 20px; border-radius: 8px; box-shadow: 0 2px 10px rgba(0,0,0,0.2); }
-    h2 { text-align: center; }
-    .question { margin-bottom: 20px; }
-    button { background: #28a745; color: white; padding: 10px 20px; border: none; margin-top: 10px; border-radius: 5px; cursor: pointer; }
-    button:hover { background: #218838; }
-    .result { background: #e2f7e2; padding: 10px; margin-top: 20px; border-left: 5px solid green; }
-    .back-link { display: inline-block; margin-top: 20px; text-decoration: none; color: #007BFF; }
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background: #121212;
+      color: #f1f1f1;
+      padding: 30px;
+    }
+    .container {
+      background: #1e1e1e;
+      max-width: 800px;
+      margin: auto;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+    }
+    h2 {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .question {
+      background: #2a2a2a;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+    .question p {
+      font-weight: bold;
+    }
+    label {
+      display: block;
+      margin: 5px 0;
+      cursor: pointer;
+    }
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+    button {
+      background: #4CAF50;
+      color: white;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #43a047;
+    }
+    .result {
+      background: #263238;
+      padding: 20px;
+      margin-top: 20px;
+      border-left: 5px solid #4CAF50;
+      border-radius: 10px;
+    }
+    .back-link {
+      display: inline-block;
+      margin-top: 20px;
+      text-decoration: none;
+      color: #29b6f6;
+      font-size: 16px;
+    }
   </style>
 </head>
 <body>
@@ -22,61 +76,21 @@
       <button type="submit">Submit Quiz</button>
     </form>
     <div id="result" class="result" style="display:none;"></div>
-    <a href="mainquiz.html" class="back-link">← Back to Main Menu</a>
+    <a href="mainquiz.html" class="back-link">← Back to Main Quiz Page</a>
   </div>
 
   <script>
     const questions = [
-      {
-        question: "What is phishing?",
-        options: ["Getting fish", "Hacking Wi-Fi", "Tricking users via email", "A web design trick"],
-        answer: 2
-      },
-      {
-        question: "Which device stores login info insecurely?",
-        options: ["Encrypted USB", "Password Manager", "Sticky notes", "2FA app"],
-        answer: 2
-      },
-      {
-        question: "What is a secure password reset option?",
-        options: ["Clicking email link", "Guessing old password", "Using a public computer", "Telling a friend"],
-        answer: 0
-      },
-      {
-        question: "Why should you avoid public Wi-Fi for banking?",
-        options: ["It’s fast", "Unsecured and risky", "Low bandwidth", "No password"],
-        answer: 1
-      },
-      {
-        question: "Which software protects against viruses?",
-        options: ["Anti-virus", "Text editor", "Browser", "PDF reader"],
-        answer: 0
-      },
-      {
-        question: "Which is not a cybersecurity threat?",
-        options: ["Worm", "Trojan", "Firewall", "Spyware"],
-        answer: 2
-      },
-      {
-        question: "Which of the following is a form of malware?",
-        options: ["VPN", "Worm", "Router", "SSL"],
-        answer: 1
-      },
-      {
-        question: "Best practice for email attachments?",
-        options: ["Open all", "Open from strangers", "Scan before opening", "Always ignore"],
-        answer: 2
-      },
-      {
-        question: "Should you click pop-up ads?",
-        options: ["Yes", "Sometimes", "If they look cool", "No"],
-        answer: 3
-      },
-      {
-        question: "A security patch is?",
-        options: ["Jacket for security", "Game update", "Bug fix update", "App download"],
-        answer: 2
-      }
+      { question: "What is phishing?", options: ["Getting fish", "Hacking Wi-Fi", "Tricking users via email", "A web design trick"], answer: 2 },
+      { question: "Which device stores login info insecurely?", options: ["Encrypted USB", "Password Manager", "Sticky notes", "2FA app"], answer: 2 },
+      { question: "What is a secure password reset option?", options: ["Clicking email link", "Guessing old password", "Using a public computer", "Telling a friend"], answer: 0 },
+      { question: "Why should you avoid public Wi-Fi for banking?", options: ["It’s fast", "Unsecured and risky", "Low bandwidth", "No password"], answer: 1 },
+      { question: "Which software protects against viruses?", options: ["Anti-virus", "Text editor", "Browser", "PDF reader"], answer: 0 },
+      { question: "Which is not a cybersecurity threat?", options: ["Worm", "Trojan", "Firewall", "Spyware"], answer: 2 },
+      { question: "Which of the following is a form of malware?", options: ["VPN", "Worm", "Router", "SSL"], answer: 1 },
+      { question: "Best practice for email attachments?", options: ["Open all", "Open from strangers", "Scan before opening", "Always ignore"], answer: 2 },
+      { question: "Should you click pop-up ads?", options: ["Yes", "Sometimes", "If they look cool", "No"], answer: 3 },
+      { question: "A security patch is?", options: ["Jacket for security", "Game update", "Bug fix update", "App download"], answer: 2 }
     ];
 
     const container = document.getElementById("questions-container");
@@ -86,10 +100,8 @@
     questions.forEach((q, i) => {
       const div = document.createElement("div");
       div.className = "question";
-      div.innerHTML = `
-        <p>${i + 1}. ${q.question}</p>
-        ${q.options.map((opt, j) => `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label><br>`).join("")}
-      `;
+      div.innerHTML = `<p>${i + 1}. ${q.question}</p>${q.options.map((opt, j) =>
+        `<label><input type="radio" name="q${i}" value="${j}"> ${opt}</label>`).join("")}`;
       container.appendChild(div);
     });
 
@@ -101,9 +113,9 @@
         const selected = form[`q${i}`].value;
         if (parseInt(selected) === q.answer) {
           score++;
-          feedback += `<p>Question ${i + 1}: Correct ✅</p>`;
+          feedback += `<p>✅ Q${i + 1} Correct</p>`;
         } else {
-          feedback += `<p>Question ${i + 1}: Incorrect ❌ (Correct: ${q.options[q.answer]})</p>`;
+          feedback += `<p>❌ Q${i + 1} Incorrect — Correct: ${q.options[q.answer]}</p>`;
         }
       });
       resultDiv.style.display = "block";
