@@ -4,13 +4,12 @@
   <meta charset="UTF-8" />
   <title>CyberRaksha Community Forum</title>
   <style>
+    
     body {
       font-family: 'Segoe UI', sans-serif;
-      margin: 0;
-      padding: 0;
       background: #f0f2f5;
+      margin: 0; padding: 0;
     }
-
     header {
       background: #1f2937;
       color: white;
@@ -18,7 +17,6 @@
       text-align: center;
       font-size: 26px;
     }
-
     .container {
       max-width: 800px;
       margin: 30px auto;
@@ -27,107 +25,30 @@
       border-radius: 10px;
       box-shadow: 0 4px 12px rgba(0,0,0,0.1);
     }
-
-    .new-post textarea {
+    .new-post textarea, .reply-box textarea {
       width: 100%;
-      height: 100px;
+      border: 1px solid #ccc;
+      border-radius: 8px;
       padding: 10px;
       font-size: 16px;
-      border-radius: 8px;
-      border: 1px solid #ccc;
       resize: none;
-      margin-bottom: 10px;
     }
-
-    .new-post button {
+    .new-post button, .reply-box button {
       background: #4CAF50;
       color: white;
-      border: none;
       padding: 10px 20px;
       font-size: 16px;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-
-    .new-post button:hover {
-      background: #45a049;
-    }
-
-    .thread {
-      border: 1px solid #e0e0e0;
-      padding: 15px;
-      border-radius: 8px;
-      margin-bottom: 20px;
-      background-color: #f9f9f9;
-    }
-
-    .thread h4 {
-      margin: 0 0 10px;
-      color: #333;
-    }
-
-    .replies {
-      margin-top: 15px;
-      padding-left: 20px;
-    }
-
-    .reply-box textarea {
-      width: 100%;
-      height: 60px;
-      padding: 8px;
-      border-radius: 6px;
-      border: 1px solid #bbb;
-      font-size: 14px;
-      resize: none;
-      margin-top: 10px;
-    }
-
-    .reply-box button {
-      margin-top: 5px;
-      background: #007BFF;
-      color: white;
       border: none;
-      padding: 6px 14px;
-      border-radius: 4px;
+      border-radius: 6px;
       cursor: pointer;
-    }
-
-    .reply-box button:hover {
-      background: #0056b3;
-    }
-
-    .reply {
-      background: #fff;
-      padding: 8px 12px;
-      border-radius: 5px;
       margin-top: 10px;
-      border-left: 3px solid #007BFF;
     }
-
-    .timestamp {
-      font-size: 12px;
-      color: #888;
-      margin-top: 4px;
-    }
-
-    .back-button {
-      display: block;
-      text-align: center;
-      margin: 30px auto 0;
-      width: fit-content;
-      padding: 10px 20px;
-      font-size: 16px;
-      background: #ff6b6b;
-      color: white;
-      text-decoration: none;
-      border-radius: 8px;
-      transition: background 0.3s;
-    }
-
-    .back-button:hover {
-      background: #e84343;
-    }
+    .thread { background: #f9f9f9; padding: 15px; margin-bottom: 20px; border-radius: 8px; }
+    .replies { margin-top: 15px; padding-left: 20px; }
+    .reply { background: white; padding: 8px 12px; border-left: 3px solid #007BFF; margin-top: 10px; border-radius: 5px; }
+    .timestamp { font-size: 12px; color: #888; margin-top: 4px; }
+    .back-button { display: block; margin: 30px auto 0; width: fit-content; background: #ff6b6b; color: white; padding: 10px 20px; text-decoration: none; border-radius: 8px; }
+    .back-button:hover { background: #e84343; }
   </style>
 </head>
 <body>
@@ -141,48 +62,85 @@
     </div>
 
     <div id="forumThreads">
-      <!-- Threads will appear here -->
+     
     </div>
   </div>
 
   <a href="../welcome.html" class="back-button">← Back to Welcome Page</a>
 
   <script>
-    function addPost() {
-      const content = document.getElementById('postContent').value.trim();
-      if (content === "") return;
+    const username = prompt("Enter your username to continue:");
 
+    async function loadPosts() {
+      const res = await fetch('/posts');
+      const posts = await res.json();
+      posts.forEach(renderPost);
+    }
+
+    function renderPost(post) {
       const thread = document.createElement('div');
       thread.className = 'thread';
+      thread.setAttribute('data-id', post._id);
+
       thread.innerHTML = `
-        <h4>${content}</h4>
-        <div class="replies"></div>
+        <h4>${post.content} <small style="font-size:14px; color:gray;">— ${post.user}</small></h4>
+        <div class="replies">
+          ${post.replies.map(r => `
+            <div class="reply">
+              ${r.text}
+              <div class="timestamp">${r.timestamp} — ${r.user}</div>
+            </div>
+          `).join('')}
+        </div>
         <div class="reply-box">
           <textarea placeholder="Write a reply..."></textarea>
           <button onclick="addReply(this)">Reply</button>
         </div>
       `;
 
-      document.getElementById('forumThreads').prepend(thread);
-      document.getElementById('postContent').value = "";
+      document.getElementById('forumThreads').appendChild(thread);
     }
 
-    function addReply(button) {
-      const replyBox = button.previousElementSibling;
-      const text = replyBox.value.trim();
-      if (text === "") return;
+    async function addPost() {
+      const content = document.getElementById('postContent').value.trim();
+      if (!content || !username) return alert("Please enter something!");
 
-      const reply = document.createElement('div');
-      reply.className = 'reply';
-      reply.innerHTML = `
-        ${text}
-        <div class="timestamp">${new Date().toLocaleString()}</div>
-      `;
+      const res = await fetch('/posts', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ content, username })
+      });
+      const post = await res.json();
+      renderPost(post);
+      document.getElementById('postContent').value = '';
+    }
+
+    async function addReply(button) {
+      const textArea = button.previousElementSibling;
+      const text = textArea.value.trim();
+      if (!text || !username) return alert("Reply cannot be empty");
 
       const thread = button.closest('.thread');
-      thread.querySelector('.replies').appendChild(reply);
-      replyBox.value = "";
+      const postId = thread.getAttribute('data-id');
+      const timestamp = new Date().toLocaleString();
+
+      const res = await fetch(`/posts/${postId}/reply`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text, timestamp, username })
+      });
+
+      const updatedPost = await res.json();
+      const repliesDiv = thread.querySelector('.replies');
+      const replyDiv = document.createElement('div');
+      replyDiv.className = 'reply';
+      replyDiv.innerHTML = `${text}<div class="timestamp">${timestamp} — ${username}</div>`;
+      repliesDiv.appendChild(replyDiv);
+      textArea.value = '';
     }
+
+    
+    window.onload = loadPosts;
   </script>
 </body>
 </html>
