@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>CyberRaksha Community Forum</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #f0f2f5;
+    }
+
+    header {
+      background: #1f2937;
+      color: white;
+      padding: 20px;
+      text-align: center;
+      font-size: 26px;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 30px auto;
+      padding: 20px;
+      background: white;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+
+    .new-post textarea {
+      width: 100%;
+      height: 100px;
+      padding: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      resize: none;
+      margin-bottom: 10px;
+    }
+
+    .new-post button {
+      background: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      font-size: 16px;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+
+    .new-post button:hover {
+      background: #45a049;
+    }
+
+    .thread {
+      border: 1px solid #e0e0e0;
+      padding: 15px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      background-color: #f9f9f9;
+    }
+
+    .thread h4 {
+      margin: 0 0 10px;
+      color: #333;
+    }
+
+    .replies {
+      margin-top: 15px;
+      padding-left: 20px;
+    }
+
+    .reply-box textarea {
+      width: 100%;
+      height: 60px;
+      padding: 8px;
+      border-radius: 6px;
+      border: 1px solid #bbb;
+      font-size: 14px;
+      resize: none;
+      margin-top: 10px;
+    }
+
+    .reply-box button {
+      margin-top: 5px;
+      background: #007BFF;
+      color: white;
+      border: none;
+      padding: 6px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .reply-box button:hover {
+      background: #0056b3;
+    }
+
+    .reply {
+      background: #fff;
+      padding: 8px 12px;
+      border-radius: 5px;
+      margin-top: 10px;
+      border-left: 3px solid #007BFF;
+    }
+
+    .timestamp {
+      font-size: 12px;
+      color: #888;
+      margin-top: 4px;
+    }
+
+    .back-button {
+      display: block;
+      text-align: center;
+      margin: 30px auto 0;
+      width: fit-content;
+      padding: 10px 20px;
+      font-size: 16px;
+      background: #ff6b6b;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+      transition: background 0.3s;
+    }
+
+    .back-button:hover {
+      background: #e84343;
+    }
+  </style>
+</head>
+<body>
+  <header>CyberRaksha Community Forum</header>
+
+  <div class="container">
+    <div class="new-post">
+      <h3>Create a New Post</h3>
+      <textarea id="postContent" placeholder="What's on your mind?"></textarea>
+      <button onclick="addPost()">Post</button>
+    </div>
+
+    <div id="forumThreads">
+      <!-- Threads will appear here -->
+    </div>
+  </div>
+
+  <a href="../welcome.html" class="back-button">← Back to Welcome Page</a>
+
+  <script>
+    function addPost() {
+      const content = document.getElementById('postContent').value.trim();
+      if (content === "") return;
+
+      const thread = document.createElement('div');
+      thread.className = 'thread';
+      thread.innerHTML = `
+        <h4>${content}</h4>
+        <div class="replies"></div>
+        <div class="reply-box">
+          <textarea placeholder="Write a reply..."></textarea>
+          <button onclick="addReply(this)">Reply</button>
+        </div>
+      `;
+
+      document.getElementById('forumThreads').prepend(thread);
+      document.getElementById('postContent').value = "";
+    }
+
+    function addReply(button) {
+      const replyBox = button.previousElementSibling;
+      const text = replyBox.value.trim();
+      if (text === "") return;
+
+      const reply = document.createElement('div');
+      reply.className = 'reply';
+      reply.innerHTML = `
+        ${text}
+        <div class="timestamp">${new Date().toLocaleString()}</div>
+      `;
+
+      const thread = button.closest('.thread');
+      thread.querySelector('.replies').appendChild(reply);
+      replyBox.value = "";
+    }
+  </script>
+</body>
+</html>
