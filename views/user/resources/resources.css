@@ -1,12 +1,12 @@
 body {
     margin: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Modern font */
-    background: linear-gradient(135deg, #e0f7fa, #b3e5fc); /* Light blue gradient background */
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+    background: linear-gradient(135deg, #e0f7fa, #b3e5fc); 
     display: flex;
     flex-direction: column;
     align-items: center;
     min-height: 100vh;
-    color: #333; /* Dark text for better contrast */
+    color: #333; 
 }
 
 header {
@@ -17,15 +17,15 @@ header {
     align-items: center;
     padding: 20px 30px;
     background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.15); /* More pronounced shadow */
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15); 
     position: sticky;
     top: 0;
     z-index: 999;
-    border-bottom: 1px solid #e0e0e0; /* Subtle bottom border */
+    border-bottom: 1px solid #e0e0e0;
 }
 
 .logo img {
-    height: 45px; /* Slightly larger logo */
+    height: 45px;
 }
 
 .welcome-header-top {
@@ -38,8 +38,8 @@ header {
     max-width: 1200px;
     padding: 30px;
     background-color: #f9f9f9;
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); /* More pronounced content shadow */
-    border-radius: 10px; /* Rounded corners for content area */
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); 
+    border-radius: 10px; 
     margin-top: 30px;
     box-sizing: border-box;
     display: flex;
@@ -58,7 +58,7 @@ header {
     padding: 12px 20px;
     text-decoration: none;
     color: #fff;
-    background-color: #007bff; /* Primary blue */
+    background-color: #007bff; 
     border: 1px solid #007bff;
     border-radius: 8px;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -66,7 +66,7 @@ header {
 }
 
 .back-button:hover {
-    background-color: #0056b3; /* Darker blue on hover */
+    background-color: #0056b3; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
@@ -76,14 +76,14 @@ header {
 }
 
 .resources-heading h2 {
-    font-size: 2.5rem; /* Larger heading */
-    color: #2c3e50; /* Darker heading text */
+    font-size: 2.5rem; 
+    color: #2c3e50;
     margin-bottom: 15px;
     font-weight: 700;
 }
 
 .attractive-text {
-    color: #00a2e8; /* Attractive bright blue */
+    color: #00a2e8; 
     font-style: italic;
 }
 
@@ -105,24 +105,24 @@ header {
 }
 
 .resource-buttons button.active {
-    background-color: #00a2e8; /* Active blue */
+    background-color: #00a2e8;
     color: #fff;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
 
 .resource-buttons button:not(.active) {
-    background-color: #e0f2f7; /* Light blue for inactive */
+    background-color: #e0f2f7; 
     color: #007bff;
 }
 
 .resource-buttons button:not(.active):hover {
-    background-color: #ccecf9; /* Lighter blue on hover */
+    background-color: #ccecf9; 
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
 .resource-list {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); /* Slightly wider boxes */
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); 
     gap: 25px;
     width: 100%;
 }
@@ -140,7 +140,7 @@ header {
 }
 
 .resource-box:hover {
-    transform: translateY(-3px); /* Subtle lift on hover */
+    transform: translateY(-3px); 
 }
 
 .resource-box.video-box {
@@ -184,7 +184,7 @@ header {
     padding: 10px 20px;
     text-decoration: none;
     color: #fff;
-    background-color: #00a2e8; /* Cool blue button */
+    background-color: #00a2e8; 
     border-radius: 8px;
     font-size: 0.95rem;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
@@ -194,11 +194,11 @@ header {
 
 .resource-box .read-button:hover,
 .resource-box .watch-button:hover {
-    background-color: #0084b8; /* Darker cool blue on hover */
+    background-color: #0084b8; 
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.15);
 }
 
-/* Responsive Grid */
+
 @media (max-width: 768px) {
     .resources-content {
         width: 95%;
@@ -217,7 +217,7 @@ header {
     .resource-buttons {
         gap: 10px;
         margin-bottom: 25px;
-        flex-direction: column; /* Stack buttons on smaller screens */
+        flex-direction: column; 
         width: 100%;
     }
 
@@ -232,7 +232,7 @@ header {
     }
 
     .resource-box {
-        flex-direction: row; /* Keep row layout for better readability on smaller screens */
+        flex-direction: row; 
         align-items: center;
     }
 
