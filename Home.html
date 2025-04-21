@@ -283,7 +283,7 @@
         body: `username=${username}&password=${password}`
       });
       const text = await res.text();
-      alert(text);
+      //alert(text);
       if (text.includes("successful")) {
         localStorage.setItem("username", username);
         window.location.href = "/user/welcome.html";
